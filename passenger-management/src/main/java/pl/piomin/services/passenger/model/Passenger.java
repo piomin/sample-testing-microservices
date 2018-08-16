@@ -1,9 +1,12 @@
 package pl.piomin.services.passenger.model;
 
+import java.util.Objects;
+
 public class Passenger {
 
     private Long id;
     private String name;
+    private String login;
     private String phoneNo;
     private int balance;
     private int homeLocationX;
@@ -65,4 +68,26 @@ public class Passenger {
     public void setDiscount(int discount) {
         this.discount = discount;
     }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Passenger passenger = (Passenger) o;
+        return Objects.equals(id, passenger.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
 }

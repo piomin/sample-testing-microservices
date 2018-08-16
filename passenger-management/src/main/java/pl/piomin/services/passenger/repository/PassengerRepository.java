@@ -15,12 +15,21 @@ public class PassengerRepository {
         return passenger;
     }
 
+    public void update(Passenger passenger) {
+        int index = passengers.indexOf(passenger);
+        passengers.set(index, passenger);
+    }
+
     public Passenger findById(Long id) {
         return passengers.stream().filter(t -> t.getId().equals(id)).findAny().get();
     }
 
     public List<Passenger> findAll() {
         return passengers;
+    }
+
+    public Passenger findByLogin(String login) {
+        return passengers.stream().filter(t -> t.getLogin().equals(login)).findAny().get();
     }
 
 }
