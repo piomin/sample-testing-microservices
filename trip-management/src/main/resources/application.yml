@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: trip-management
+
+server:
+  port: ${PORT:0}

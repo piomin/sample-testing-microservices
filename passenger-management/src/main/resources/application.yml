@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: passenger-management
+
+server:
+  port: ${PORT:0}

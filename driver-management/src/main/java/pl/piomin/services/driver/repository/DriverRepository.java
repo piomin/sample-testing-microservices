@@ -1,0 +1,26 @@
+package pl.piomin.services.driver.repository;
+
+import pl.piomin.services.driver.model.Driver;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DriverRepository {
+
+    private List<Driver> drivers = new ArrayList<>();
+
+    public Driver add(Driver driver) {
+        driver.setId(drivers.size() + 1L);
+        drivers.add(driver);
+        return driver;
+    }
+
+    public Driver findById(Long id) {
+        return drivers.stream().filter(t -> t.getId().equals(id)).findAny().get();
+    }
+
+    public List<Driver> findAll() {
+        return drivers;
+    }
+
+}

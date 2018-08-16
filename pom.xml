@@ -11,6 +11,9 @@
 
     <modules>
         <module>discovery-service</module>
+        <module>trip-management</module>
+        <module>passenger-management</module>
+        <module>driver-management</module>
     </modules>
 
 </project>

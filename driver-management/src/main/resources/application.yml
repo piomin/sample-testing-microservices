@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: driver-management
+
+server:
+  port: ${PORT:0}
