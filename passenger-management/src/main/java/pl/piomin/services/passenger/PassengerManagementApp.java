@@ -3,6 +3,7 @@ package pl.piomin.services.passenger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import pl.piomin.services.passenger.model.Passenger;
 import pl.piomin.services.passenger.repository.PassengerRepository;
 
 @SpringBootApplication
@@ -15,6 +16,7 @@ public class PassengerManagementApp {
     @Bean
     PassengerRepository repository() {
         PassengerRepository repository = new PassengerRepository();
+        repository.add(new Passenger("Paul Walker", "walker", "550660770", 1000, 40, 20));
         return repository;
     }
 

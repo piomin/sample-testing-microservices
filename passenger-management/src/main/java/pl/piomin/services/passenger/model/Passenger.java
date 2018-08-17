@@ -13,6 +13,19 @@ public class Passenger {
     private int homeLocationY;
     private int discount;
 
+    public Passenger() {
+
+    }
+
+    public Passenger(String name, String login, String phoneNo, int balance, int homeLocationX, int homeLocationY) {
+        this.name = name;
+        this.login = login;
+        this.phoneNo = phoneNo;
+        this.balance = balance;
+        this.homeLocationX = homeLocationX;
+        this.homeLocationY = homeLocationY;
+    }
+
     public Long getId() {
         return id;
     }

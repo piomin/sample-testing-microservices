@@ -11,7 +11,7 @@ import pl.piomin.services.trip.model.PassengerInput;
 @FeignClient("passenger-management")
 public interface PassengerManagementClient {
 
-    @GetMapping("/passengers/{login}")
+    @GetMapping("/passengers/login/{login}")
     Passenger getPassenger(@PathVariable("login") String login);
 
     @PutMapping("/passengers")

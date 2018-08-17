@@ -35,6 +35,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.specto</groupId>
+            <artifactId>hoverfly-java</artifactId>
+            <version>0.11.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
