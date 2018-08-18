@@ -27,6 +27,7 @@ public class TripController {
         trip.setPassengerId(passenger.getId());
         Driver driver  = driverManagementClient.getNearestDriver(passenger.getHomeLocationX(), passenger.getHomeLocationY());
         trip.setDriverId(driver.getId());
+        trip.setStatus(TripStatus.NEW);
         trip = repository.add(trip);
         return trip;
     }
