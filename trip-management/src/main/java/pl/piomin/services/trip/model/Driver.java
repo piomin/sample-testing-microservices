@@ -9,6 +9,16 @@ public class Driver {
     private int currentLocationX;
     private int currentLocationY;
 
+    public Driver() {
+    }
+
+    public Driver(Long id, String name, int currentLocationX, int currentLocationY) {
+        this.id = id;
+        this.name = name;
+        this.currentLocationX = currentLocationX;
+        this.currentLocationY = currentLocationY;
+    }
+
     public Long getId() {
         return id;
     }

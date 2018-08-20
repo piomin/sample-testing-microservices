@@ -8,7 +8,6 @@ public class TripInput {
     private String username;
 
     public TripInput() {
-
     }
 
     public TripInput(String destination, int locationX, int locationY, String username) {

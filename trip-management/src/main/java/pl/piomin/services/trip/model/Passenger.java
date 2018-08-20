@@ -10,6 +10,15 @@ public class Passenger {
     private int homeLocationY;
     private int discount;
 
+    public Passenger() {
+    }
+
+    public Passenger(Long id, String name, String phoneNo) {
+        this.id = id;
+        this.name = name;
+        this.phoneNo = phoneNo;
+    }
+
     public Long getId() {
         return id;
     }
