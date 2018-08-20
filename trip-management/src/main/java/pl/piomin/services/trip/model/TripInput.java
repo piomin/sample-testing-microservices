@@ -7,6 +7,16 @@ public class TripInput {
     private int locationY;
     private String username;
 
+    public TripInput() {
+    }
+
+    public TripInput(String destination, int locationX, int locationY, String username) {
+        this.destination = destination;
+        this.locationX = locationX;
+        this.locationY = locationY;
+        this.username = username;
+    }
+
     public String getDestination() {
         return destination;
     }
