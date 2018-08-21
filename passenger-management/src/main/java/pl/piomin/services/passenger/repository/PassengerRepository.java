@@ -15,9 +15,10 @@ public class PassengerRepository {
         return passenger;
     }
 
-    public void update(Passenger passenger) {
+    public Passenger update(Passenger passenger) {
         int index = passengers.indexOf(passenger);
         passengers.set(index, passenger);
+        return passenger;
     }
 
     public Passenger findById(Long id) {

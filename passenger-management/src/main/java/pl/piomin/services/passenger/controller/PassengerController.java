@@ -24,8 +24,7 @@ public class PassengerController {
     public Passenger update(@RequestBody PassengerInput passengerInput) {
         Passenger passenger = repository.findById(passengerInput.getId());
         passenger.setBalance(passenger.getBalance() + passengerInput.getAmount());
-        repository.update(passenger);
-        return passenger;
+        return repository.update(passenger);
     }
 
     @GetMapping("/{id}")

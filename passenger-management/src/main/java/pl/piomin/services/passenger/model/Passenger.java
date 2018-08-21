@@ -17,6 +17,13 @@ public class Passenger {
 
     }
 
+    public Passenger(Long id, String name, String login, int balance) {
+        this.id = id;
+        this.name = name;
+        this.login = login;
+        this.balance = balance;
+    }
+
     public Passenger(String name, String login, String phoneNo, int balance, int homeLocationX, int homeLocationY) {
         this.name = name;
         this.login = login;
