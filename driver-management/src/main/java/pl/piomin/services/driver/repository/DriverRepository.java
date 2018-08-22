@@ -17,9 +17,9 @@ public class DriverRepository {
         return driver;
     }
 
-    public void update(Driver driver) {
+    public Driver update(Driver driver) {
         int index = drivers.indexOf(driver);
-        drivers.set(index, driver);
+        return drivers.set(index, driver);
     }
 
     public Driver findById(Long id) {

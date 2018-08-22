@@ -13,6 +13,23 @@ public class Driver {
     private int currentLocationY;
     private DriverStatus status;
 
+    public Driver() {
+    }
+
+    public Driver(Long id, String name, int currentLocationX, int currentLocationY, DriverStatus status) {
+        this.id = id;
+        this.name = name;
+        this.currentLocationX = currentLocationX;
+        this.currentLocationY = currentLocationY;
+        this.status = status;
+    }
+
+    public Driver(Long id, int balance, DriverStatus status) {
+        this.id = id;
+        this.balance = balance;
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
     }

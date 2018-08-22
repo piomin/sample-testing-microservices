@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.piomin.services.trip.client.PassengerManagementClient;
 import pl.piomin.services.trip.model.Passenger;
@@ -50,8 +49,7 @@ public class PassengerManagementContractTests {
     public void verifyGetPassengerPact() {
         Passenger passenger = passengerManagementClient.getPassenger("test");
         Assert.assertNotNull(passenger);
-        Assert.assertEquals(4000, passenger.getBalance());
-        Assert.assertEquals(Long.valueOf(1), passenger.getId());
+        Assert.assertNotNull(passenger.getId());
     }
 
     @Test
@@ -59,8 +57,7 @@ public class PassengerManagementContractTests {
     public void verifyUpdatePassengerPact() {
         Passenger passenger = passengerManagementClient.updatePassenger(new PassengerInput(1L, 1000));
         Assert.assertNotNull(passenger);
-        Assert.assertEquals(5000, passenger.getBalance());
-        Assert.assertEquals(Long.valueOf(1), passenger.getId());
+        Assert.assertNotNull(passenger.getId());
     }
 
 }
