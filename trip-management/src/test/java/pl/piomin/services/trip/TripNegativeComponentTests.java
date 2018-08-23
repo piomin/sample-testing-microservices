@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 })
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
-public class TripComponentNegativeTests {
+public class TripNegativeComponentTests {
 
     private ObjectMapper mapper = new ObjectMapper();
     @Autowired
