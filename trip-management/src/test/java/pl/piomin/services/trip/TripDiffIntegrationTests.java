@@ -1,5 +1,6 @@
 package pl.piomin.services.trip;
 
+import io.specto.hoverfly.junit.core.HoverflyConfig;
 import io.specto.hoverfly.junit.core.SimulationSource;
 import io.specto.hoverfly.junit.dsl.HoverflyDsl;
 import io.specto.hoverfly.junit.dsl.HttpBodyConverter;
@@ -28,7 +29,7 @@ public class TripDiffIntegrationTests {
             HoverflyDsl.service(HoverflyMatchers.startsWith("minkowp-l.p4.org"))
                     .get(HoverflyMatchers.startsWith("/passengers/"))
                     .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'John Smith'}")).header("Content-Type", "application/json;charset=UTF-8"))
-    )).printSimulationData();
+    ), HoverflyConfig.localConfigs().proxyLocalHost()).printSimulationData();
 
     @Test
     public void testGetPassengerByLogin() {

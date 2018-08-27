@@ -11,8 +11,10 @@ import io.specto.hoverfly.junit.rule.HoverflyRule;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.ClassRule;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +26,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.util.Assert;
 import pl.piomin.services.trip.client.PassengerManagementClient;
 import pl.piomin.services.trip.model.Passenger;
+import pl.piomin.services.trip.model.Trip;
 import pl.piomin.services.trip.model.TripInput;
 
 @SpringBootTest(properties = {
@@ -34,6 +37,7 @@ import pl.piomin.services.trip.model.TripInput;
 })
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TripComponentTests {
 
     ObjectMapper mapper = new ObjectMapper();
@@ -52,7 +56,7 @@ public class TripComponentTests {
     )).printSimulationData();
 
     @Test
-    public void testCreateNewTrip() throws Exception {
+    public void test1CreateNewTrip() throws Exception {
         TripInput ti = new TripInput("test", 10, 20, "walker");
         mockMvc.perform(MockMvcRequestBuilders.post("/trips")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -61,6 +65,27 @@ public class TripComponentTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.any(Integer.class)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status", Matchers.is("NEW")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.driverId", Matchers.any(Integer.class)));
+    }
+
+    @Test
+    public void test2CancelTrip() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/trips/cancel/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(mapper.writeValueAsString(new Trip())))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.any(Integer.class)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status", Matchers.is("IN_PROGRESS")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.driverId", Matchers.any(Integer.class)));
+    }
+
+    @Test
+    public void test3PayTrip() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/trips/payment/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(mapper.writeValueAsString(new Trip())))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.any(Integer.class)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status", Matchers.is("PAYED")));
     }
 
 }
