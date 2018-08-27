@@ -49,10 +49,14 @@ public class TripComponentTests {
     public static HoverflyRule rule = HoverflyRule.inSimulationMode(SimulationSource.dsl(
             HoverflyDsl.service("passenger-management:80")
                     .get(HoverflyMatchers.startsWith("/passengers/login/"))
-                    .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'John Walker'}"))),
+                        .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'John Walker'}")))
+                    .put(HoverflyMatchers.startsWith("/passengers")).anyBody()
+                        .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'John Walker'}"))),
             HoverflyDsl.service("driver-management:80")
                     .get(HoverflyMatchers.startsWith("/drivers/"))
-                    .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'David Smith','currentLocationX': 15,'currentLocationY':25}")))
+                        .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'David Smith','currentLocationX': 15,'currentLocationY':25}")))
+                    .put(HoverflyMatchers.startsWith("/drivers")).anyBody()
+                        .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'David Smith','currentLocationX': 15,'currentLocationY':25}")))
     )).printSimulationData();
 
     @Test

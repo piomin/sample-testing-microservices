@@ -14,6 +14,7 @@
         <module>trip-management</module>
         <module>passenger-management</module>
         <module>driver-management</module>
+        <module>performance-tests</module>
     </modules>
 
 </project>

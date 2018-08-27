@@ -19,10 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import pl.piomin.services.trip.client.DriverManagementClient;
 import pl.piomin.services.trip.client.PassengerManagementClient;
 import pl.piomin.services.trip.controller.TripController;
-import pl.piomin.services.trip.model.Driver;
-import pl.piomin.services.trip.model.Passenger;
-import pl.piomin.services.trip.model.Trip;
-import pl.piomin.services.trip.model.TripInput;
+import pl.piomin.services.trip.model.*;
 import pl.piomin.services.trip.repository.TripRepository;
 
 @RunWith(SpringRunner.class)
@@ -43,7 +40,10 @@ public class TripControllerUnitTests {
     @Before
     public void init() {
         Mockito.when(passengerManagementClient.getPassenger(Mockito.anyString())).thenReturn(new Passenger(1L, "John Smith", "550660770"));
+        Mockito.when(passengerManagementClient.updatePassenger(Mockito.any(PassengerInput.class))).thenReturn(new Passenger(1L, "John Smith", "550660770"));
         Mockito.when(driverManagementClient.getNearestDriver(Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Driver(1L, "Adam Walker", 20, 10));
+        Mockito.when(driverManagementClient.updateDriver(Mockito.any(DriverInput.class))).thenReturn(new Driver(1L, "Adam Walker", 20, 10));
+        Mockito.when(repository.findById(Mockito.anyLong())).thenReturn(new Trip(1L, 10, 20, 1L, 1L));
         Mockito.when(repository.add(Mockito.any(Trip.class))).thenAnswer(new Answer<Trip>() {
             @Override
             public Trip answer(InvocationOnMock invocation) throws Throwable {
@@ -60,6 +60,22 @@ public class TripControllerUnitTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.any(Integer.class)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status", Matchers.is("NEW")));
+    }
+
+    @Test
+    public void testCancelTrip() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/trips/cancel/1").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(new TripInput())))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.any(Integer.class)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status", Matchers.is("IN_PROGRESS")));
+    }
+
+    @Test
+    public void testPayTrip() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/trips/payment/1").contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(new TripInput())))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.any(Integer.class)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status", Matchers.is("PAYED")));
     }
 
 }

@@ -37,7 +37,12 @@ public class TripController {
         Trip trip = repository.findById(id);
         driverManagementClient.updateDriver(new DriverInput(trip.getDriverId(), DriverStatus.UNAVAILABLE));
         Driver driver  = driverManagementClient.getNearestDriver(trip.getLocationX(), trip.getLocationY());
-        trip.setDriverId(driver.getId());
+        if (driver != null) {
+            trip.setDriverId(driver.getId());
+            trip.setStatus(TripStatus.IN_PROGRESS);
+        } else {
+            trip.setStatus(TripStatus.REJECTED);
+        }
         return trip;
     }
 

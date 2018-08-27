@@ -12,6 +12,18 @@ public class Trip {
     private TripStatus status;
     private int timeToStart;
 
+    public Trip() {
+
+    }
+
+    public Trip(Long id, int locationX, int locationY, Long passengerId, Long driverId) {
+        this.id = id;
+        this.locationX = locationX;
+        this.locationY = locationY;
+        this.passengerId = passengerId;
+        this.driverId = driverId;
+    }
+
     public Long getId() {
         return id;
     }
