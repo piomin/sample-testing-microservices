@@ -20,6 +20,7 @@ import pl.piomin.services.trip.model.PassengerInput;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = {
+        "driver-management.ribbon.listOfServers=localhost:8190",
         "passenger-management.ribbon.listOfServers=localhost:8180",
         "ribbon.eureka.enabled=false",
         "eureka.client.enabled=false",

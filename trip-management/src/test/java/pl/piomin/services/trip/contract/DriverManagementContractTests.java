@@ -20,6 +20,7 @@ import pl.piomin.services.trip.model.DriverStatus;
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = {
         "driver-management.ribbon.listOfServers=localhost:8190",
+        "passenger-management.ribbon.listOfServers=localhost:8180",
         "ribbon.eureka.enabled=false",
         "eureka.client.enabled=false",
         "ribbon.ReadTimeout=5000"
@@ -39,9 +40,9 @@ public class DriverManagementContractTests {
     }
 
     @Pact(state = "update-driver", provider = "driverManagementProvider", consumer = "driverManagementClient")
-    public RequestResponsePact callUpdatePassenger(PactDslWithProvider builder) {
+    public RequestResponsePact callUpdateDriver(PactDslWithProvider builder) {
         return builder.given("update-driver").uponReceiving("test-update-driver")
-                .path("/drivers").method("PUT").bodyWithSingleQuotes("{'id':1,'status':'UNAVAILABLE'}", "application/json").willRespondWith().status(200)
+                .path("/drivers").method("PUT").bodyWithSingleQuotes("{'id':1,'status':'UNAVAILABLE','amount':0}", "application/json").willRespondWith().status(200)
                 .bodyWithSingleQuotes("{'id':1,'name':'Adam Smith','status':'UNAVAILABLE'}", "application/json").toPact();
     }
 
