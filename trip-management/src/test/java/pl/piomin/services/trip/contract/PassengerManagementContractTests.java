@@ -3,6 +3,8 @@ package pl.piomin.services.trip.contract;
 import au.com.dius.pact.consumer.Pact;
 import au.com.dius.pact.consumer.PactProviderRuleMk2;
 import au.com.dius.pact.consumer.PactVerification;
+import au.com.dius.pact.consumer.dsl.DslPart;
+import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.model.RequestResponsePact;
 import org.junit.Assert;
@@ -32,9 +34,10 @@ public class PassengerManagementContractTests {
 
     @Pact(state = "get-passenger", provider = "passengerManagementProvider", consumer = "passengerManagementClient")
     public RequestResponsePact callGetPassenger(PactDslWithProvider builder) {
+        DslPart body = new PactDslJsonBody().integerType("id").stringType("name").numberType("balance").close();
         return builder.given("get-passenger").uponReceiving("test-get-passenger")
-                .path("/passengers/login/test").method("GET").willRespondWith().status(200)
-                .bodyWithSingleQuotes("{'id':1,'name':'Adam Smith','balance':4000}", "application/json").toPact();
+                .path("/passengers/login/test").method("GET").willRespondWith().status(200).body(body).toPact();
+//                .bodyWithSingleQuotes("{'id':1,'name':'Adam Smith','balance':4000}", "application/json").toPact();
     }
 
     @Pact(state = "update-passenger", provider = "passengerManagementProvider", consumer = "passengerManagementClient")

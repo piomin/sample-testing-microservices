@@ -37,9 +37,11 @@ public class PassengerControllerContractTests {
 
     @State("get-passenger")
     public void testGetPassenger() {
-        target.setRunTimes(1);
+        target.setRunTimes(3);
         Mockito.when(repository.findByLogin(Mockito.anyString()))
-                .thenReturn(new Passenger(1L, "Adam Smith", "test", 4000));
+                .thenReturn(new Passenger(1L, "Adam Smith", "test", 4000))
+                .thenReturn(new Passenger(3L, "Tom Hamilton", "hamilton", 400000))
+                .thenReturn(new Passenger(5L, "John Scott", "scott", 222));
     }
 
     @State("update-passenger")
