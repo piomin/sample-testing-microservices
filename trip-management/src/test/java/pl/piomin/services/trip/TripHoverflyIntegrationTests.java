@@ -28,6 +28,7 @@ public class TripHoverflyIntegrationTests {
     public void testGetPassengerByLogin() {
         Passenger passenger = passengerManagementClient.getPassenger("walker");
         Assert.notNull(passenger, "No passenger");
+        Assert.notNull(passenger.getName(), "No passenger name");
     }
 
 }
