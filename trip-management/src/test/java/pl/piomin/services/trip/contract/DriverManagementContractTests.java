@@ -19,7 +19,7 @@ import pl.piomin.services.trip.model.DriverStatus;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = {
-        "driver-management.ribbon.listOfServers=localhost:8080",
+        "driver-management.ribbon.listOfServers=localhost:8190",
         "ribbon.eureka.enabled=false",
         "eureka.client.enabled=false",
         "ribbon.ReadTimeout=5000"
@@ -27,7 +27,7 @@ import pl.piomin.services.trip.model.DriverStatus;
 public class DriverManagementContractTests {
 
     @Rule
-    public PactProviderRuleMk2 stubProvider = new PactProviderRuleMk2("driverManagementProvider", "localhost", 8080, this);
+    public PactProviderRuleMk2 stubProvider = new PactProviderRuleMk2("driverManagementProvider", "localhost", 8190, this);
     @Autowired
     private DriverManagementClient driverManagementClient;
 

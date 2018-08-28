@@ -11,7 +11,9 @@ pipeline {
         }
         stage('Tests') {
             steps {
-                sh 'mvn test'
+                dir('trip-management') {
+                    sh 'mvn test'
+                }
             }
         }
         stage('Integration Tests') {

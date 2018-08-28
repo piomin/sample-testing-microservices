@@ -20,7 +20,7 @@ import pl.piomin.services.trip.model.PassengerInput;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = {
-        "passenger-management.ribbon.listOfServers=localhost:8080",
+        "passenger-management.ribbon.listOfServers=localhost:8180",
         "ribbon.eureka.enabled=false",
         "eureka.client.enabled=false",
         "ribbon.ReadTimeout=5000"
@@ -28,7 +28,7 @@ import pl.piomin.services.trip.model.PassengerInput;
 public class PassengerManagementContractTests {
 
     @Rule
-    public PactProviderRuleMk2 stubProvider = new PactProviderRuleMk2("passengerManagementProvider", "localhost", 8080, this);
+    public PactProviderRuleMk2 stubProvider = new PactProviderRuleMk2("passengerManagementProvider", "localhost", 8180, this);
     @Autowired
     private PassengerManagementClient passengerManagementClient;
 
