@@ -17,7 +17,11 @@ public class DriverManagementApp {
     @Bean
     DriverRepository repository() {
         DriverRepository repository = new DriverRepository();
-        repository.add(new Driver(1L, "Paul Walker", 10, 20, DriverStatus.AVAILABLE));
+        repository.add(new Driver("Paul Walker", 20, 20, DriverStatus.AVAILABLE));
+        repository.add(new Driver("Test2", 30, 20, DriverStatus.AVAILABLE));
+        repository.add(new Driver("Test3", 40, 20, DriverStatus.AVAILABLE));
+        repository.add(new Driver("Test4", 50, 20, DriverStatus.AVAILABLE));
+        repository.add(new Driver("Test5", 60, 20, DriverStatus.AVAILABLE));
         return repository;
     }
 

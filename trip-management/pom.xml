@@ -76,6 +76,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <forkCount>5</forkCount>
                     <includes>
                         <include>**/*ContractTests.class</include>
                         <include>**/*UnitTests.class</include>
@@ -83,7 +84,6 @@
                     </includes>
                     <excludes>
                         <exclude>**/*IntegrationTests.java</exclude>
-                        <exclude>**/*UnitTests.class</exclude>
                     </excludes>
                 </configuration>
             </plugin>

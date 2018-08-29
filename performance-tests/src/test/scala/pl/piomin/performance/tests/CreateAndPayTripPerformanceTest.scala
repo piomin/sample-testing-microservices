@@ -17,7 +17,7 @@ class CreateAndPayTripPerformanceTest extends Simulation {
     exec(http("CreateTrip-API")
       .post("http://localhost:8090/trips")
       .header("Content-Type", "application/json")
-      .body(StringBody("""{"destination":"test${n}","locationX":${n},"locationY":${n},"username":"user${n}"}"""))
+      .body(StringBody("""{"destination":"test${n}","locationX":${n},"locationY":${n},"username":"${passenger}"}"""))
       .check(status.is(200), jsonPath("$.id").saveAs("tripId"))
     ).exec(http("PayTrip-API")
       .put("http://localhost:8090/trips/${tripId}")
@@ -27,5 +27,6 @@ class CreateAndPayTripPerformanceTest extends Simulation {
   }
 
   setUp(scn.inject(atOnceUsers(20))).maxDuration(FiniteDuration.apply(5, TimeUnit.MINUTES))
+    .assertions(global.responseTime.max.lt(50))
 
 }

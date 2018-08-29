@@ -17,6 +17,10 @@ public class PassengerManagementApp {
     PassengerRepository repository() {
         PassengerRepository repository = new PassengerRepository();
         repository.add(new Passenger("Paul Walker", "walker", "550660770", 1000, 40, 20));
+        repository.add(new Passenger("Adam Smith", "smith", "550660771", 2000, 50, 20));
+        repository.add(new Passenger("Richard Hamilton", "hamilton", "550660772", 3000, 70, 20));
+        repository.add(new Passenger("Tom Scott", "scott", "550660773", 4000, 30, 20));
+        repository.add(new Passenger("Wayne Holmes", "holmes", "550660774", 5000, 60, 20));
         return repository;
     }
 

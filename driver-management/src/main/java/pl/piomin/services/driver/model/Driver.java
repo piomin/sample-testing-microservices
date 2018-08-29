@@ -24,6 +24,13 @@ public class Driver {
         this.status = status;
     }
 
+    public Driver(String name, int currentLocationX, int currentLocationY, DriverStatus status) {
+        this.name = name;
+        this.currentLocationX = currentLocationX;
+        this.currentLocationY = currentLocationY;
+        this.status = status;
+    }
+
     public Driver(Long id, int balance, DriverStatus status) {
         this.id = id;
         this.balance = balance;
