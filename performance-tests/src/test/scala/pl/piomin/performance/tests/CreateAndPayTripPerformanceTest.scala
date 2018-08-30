@@ -23,7 +23,7 @@ class CreateAndPayTripPerformanceTest extends Simulation {
       .put("http://localhost:8090/trips/${tripId}")
       .header("Content-Type", "application/json")
       .check(status.is(200))
-    )
+    ).pause(FiniteDuration.apply(10, TimeUnit.MILLISECONDS))
   }
 
   setUp(scn.inject(atOnceUsers(20))).maxDuration(FiniteDuration.apply(5, TimeUnit.MINUTES))

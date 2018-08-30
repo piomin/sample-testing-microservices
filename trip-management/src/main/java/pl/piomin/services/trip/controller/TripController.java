@@ -1,6 +1,7 @@
 package pl.piomin.services.trip.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import pl.piomin.services.trip.client.DriverManagementClient;
 import pl.piomin.services.trip.client.PassengerManagementClient;
@@ -13,6 +14,8 @@ import java.util.List;
 @RequestMapping("/trips")
 public class TripController {
 
+    @Value("${app.updateDriverStatus}")
+    private boolean updateDriver;
     @Autowired
     private TripRepository repository;
     @Autowired
@@ -25,10 +28,15 @@ public class TripController {
         Trip trip = new Trip();
         Passenger passenger = passengerManagementClient.getPassenger(tripInput.getUsername());
         trip.setPassengerId(passenger.getId());
+        trip.setDestination(tripInput.getDestination());
+        trip.setLocationX(tripInput.getLocationX());
+        trip.setLocationY(tripInput.getLocationY());
         Driver driver  = driverManagementClient.getNearestDriver(passenger.getHomeLocationX(), passenger.getHomeLocationY());
         trip.setDriverId(driver.getId());
         trip.setStatus(TripStatus.NEW);
         trip = repository.add(trip);
+        if (updateDriver)
+            driverManagementClient.updateDriver(new DriverInput(driver.getId(), DriverStatus.UNAVAILABLE));
         return trip;
     }
 
@@ -52,6 +60,8 @@ public class TripController {
         passengerManagementClient.updatePassenger(new PassengerInput(id, trip.getPrice()));
         driverManagementClient.updateDriver(new DriverInput(trip.getDriverId(), trip.getPrice()));
         trip.setStatus(TripStatus.PAYED);
+        if (updateDriver)
+            driverManagementClient.updateDriver(new DriverInput(trip.getDriverId(), DriverStatus.AVAIlABLE));
         return trip;
     }
 
@@ -60,12 +70,12 @@ public class TripController {
         return repository.findById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<Trip> getAll() {
         return repository.findAll();
     }
 
-    @GetMapping("/{staus}")
+    @GetMapping("/{status}")
     public List<Trip> getByStatus(TripStatus status) {
         return repository.findByStatus(status);
     }
