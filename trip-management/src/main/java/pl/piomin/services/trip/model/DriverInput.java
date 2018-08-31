@@ -20,6 +20,12 @@ public class DriverInput {
         this.amount = amount;
     }
 
+    public DriverInput(Long id, DriverStatus status, int amount) {
+        this.id = id;
+        this.status = status;
+        this.amount = amount;
+    }
+
     public Long getId() {
         return id;
     }

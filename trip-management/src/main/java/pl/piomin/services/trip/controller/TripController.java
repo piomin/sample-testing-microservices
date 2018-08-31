@@ -1,6 +1,7 @@
 package pl.piomin.services.trip.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import pl.piomin.services.trip.client.DriverManagementClient;
 import pl.piomin.services.trip.client.PassengerManagementClient;
@@ -13,6 +14,8 @@ import java.util.List;
 @RequestMapping("/trips")
 public class TripController {
 
+    @Value("${app.updateDriverStatus:true}")
+    private boolean updateDriver;
     @Autowired
     private TripRepository repository;
     @Autowired
@@ -24,11 +27,28 @@ public class TripController {
     public Trip create(@RequestBody TripInput tripInput) {
         Trip trip = new Trip();
         Passenger passenger = passengerManagementClient.getPassenger(tripInput.getUsername());
+        if (passenger.getBalance() < 0) {
+            trip.setStatus(TripStatus.REJECTED);
+            return trip;
+        }
         trip.setPassengerId(passenger.getId());
-        Driver driver  = driverManagementClient.getNearestDriver(passenger.getHomeLocationX(), passenger.getHomeLocationY());
+        trip.setDestination(tripInput.getDestination());
+        Driver driver = null;
+        if (tripInput.getLocationX() != null && tripInput.getLocationY() != null) {
+            trip.setLocationX(tripInput.getLocationX());
+            trip.setLocationY(tripInput.getLocationY());
+            driver = driverManagementClient.getNearestDriver(passenger.getHomeLocationX(), passenger.getHomeLocationY());
+        } else {
+            trip.setLocationX(passenger.getHomeLocationX());
+            trip.setLocationY(passenger.getHomeLocationY());
+            driver = driverManagementClient.getNearestDriver(tripInput.getLocationX(), tripInput.getLocationY());
+        }
         trip.setDriverId(driver.getId());
         trip.setStatus(TripStatus.NEW);
+        trip.setStartTime(System.currentTimeMillis());
         trip = repository.add(trip);
+        if (updateDriver)
+            driverManagementClient.updateDriver(new DriverInput(driver.getId(), DriverStatus.UNAVAILABLE));
         return trip;
     }
 
@@ -49,10 +69,12 @@ public class TripController {
     @PutMapping("/payment/{id}")
     public Trip payment(@PathVariable("id") Long id) {
         Trip trip = repository.findById(id);
-        passengerManagementClient.updatePassenger(new PassengerInput(id, trip.getPrice()));
-        driverManagementClient.updateDriver(new DriverInput(trip.getDriverId(), trip.getPrice()));
+        long duration = System.currentTimeMillis() - trip.getStartTime();
+        trip.setPrice((int) (duration / 1000));
+        passengerManagementClient.updatePassenger(new PassengerInput(id, (-1) * trip.getPrice()));
+        driverManagementClient.updateDriver(new DriverInput(trip.getDriverId(), DriverStatus.AVAIlABLE, trip.getPrice()));
         trip.setStatus(TripStatus.PAYED);
-        return trip;
+        return repository.update(trip);
     }
 
     @GetMapping("/{id}")
@@ -60,12 +82,12 @@ public class TripController {
         return repository.findById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<Trip> getAll() {
         return repository.findAll();
     }
 
-    @GetMapping("/{staus}")
+    @GetMapping("/{status}")
     public List<Trip> getByStatus(TripStatus status) {
         return repository.findByStatus(status);
     }

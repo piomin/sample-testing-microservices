@@ -3,4 +3,7 @@ spring:
     name: trip-management
 
 server:
-  port: ${PORT:8090}
+  port: ${PORT:0}
+
+app:
+  updateDriverStatus: ${UPDATE_DRIVER_STATUS:true}
