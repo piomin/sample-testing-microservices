@@ -86,12 +86,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <forkCount>5</forkCount>
+                    <!--<forkCount>5</forkCount>-->
                     <skipTests>${skip.unit.tests}</skipTests>
                     <includes>
-                        <include>**/*ContractTests.class</include>
+                        <!--<include>**/*ContractTests.class</include>-->
                         <include>**/*UnitTests.class</include>
-                        <include>**/*ComponentTests.class</include>
+                        <!--<include>**/*ComponentTests.class</include>-->
                     </includes>
                     <excludes>
                         <exclude>**/*IntegrationTests.java</exclude>
