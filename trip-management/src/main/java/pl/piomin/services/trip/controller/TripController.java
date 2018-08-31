@@ -27,6 +27,10 @@ public class TripController {
     public Trip create(@RequestBody TripInput tripInput) {
         Trip trip = new Trip();
         Passenger passenger = passengerManagementClient.getPassenger(tripInput.getUsername());
+        if (passenger.getBalance() < 0) {
+            trip.setStatus(TripStatus.REJECTED);
+            return trip;
+        }
         trip.setPassengerId(passenger.getId());
         trip.setDestination(tripInput.getDestination());
         Driver driver = null;
