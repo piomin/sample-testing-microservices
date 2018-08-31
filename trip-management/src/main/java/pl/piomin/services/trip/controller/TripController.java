@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/trips")
 public class TripController {
 
-    @Value("${app.updateDriverStatus}")
+    @Value("${app.updateDriverStatus:true}")
     private boolean updateDriver;
     @Autowired
     private TripRepository repository;

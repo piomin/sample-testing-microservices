@@ -12,7 +12,7 @@ pipeline {
         stage('Tests') {
             steps {
                 dir('trip-management') {
-                    sh 'mvn test'
+                    sh 'mvn clean test'
                 }
             }
         }
