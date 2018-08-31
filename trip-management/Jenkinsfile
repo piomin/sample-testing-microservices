@@ -12,23 +12,22 @@ pipeline {
         stage('Tests') {
             steps {
                 dir('trip-management') {
-                    sh 'mvn test'
+                    sh 'mvn clean test'
                 }
             }
         }
         stage('Integration Tests') {
             steps {
-                sh 'mvn verify'
-            }
-            unstable {
-                input {
-                    message: 'Continue?'
+                dir('trip-management') {
+                    sh 'mvn clean verify -P integration-test, !unit-tests'
                 }
             }
         }
         stage('Build') {
             steps {
-                sh 'mvn package -Dmaven.test.skip=true'
+                dir('trip-management') {
+                    sh 'mvn package -Dmaven.test.skip=true'
+                }
             }
         }
     }
