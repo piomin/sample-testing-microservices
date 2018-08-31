@@ -3,14 +3,14 @@ package pl.piomin.services.trip.model;
 public class TripInput {
 
     private String destination;
-    private int locationX;
-    private int locationY;
+    private Integer locationX;
+    private Integer locationY;
     private String username;
 
     public TripInput() {
     }
 
-    public TripInput(String destination, int locationX, int locationY, String username) {
+    public TripInput(String destination, Integer locationX, Integer locationY, String username) {
         this.destination = destination;
         this.locationX = locationX;
         this.locationY = locationY;
@@ -25,15 +25,15 @@ public class TripInput {
         this.destination = destination;
     }
 
-    public int getLocationX() {
+    public Integer getLocationX() {
         return locationX;
     }
 
-    public void setLocationX(int locationX) {
+    public void setLocationX(Integer locationX) {
         this.locationX = locationX;
     }
 
-    public int getLocationY() {
+    public Integer getLocationY() {
         return locationY;
     }
 

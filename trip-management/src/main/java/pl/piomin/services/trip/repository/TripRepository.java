@@ -17,6 +17,11 @@ public class TripRepository {
         return trip;
     }
 
+    public Trip update(Trip trip) {
+        int index = trips.indexOf(trip);
+        return trips.set(index, trip);
+    }
+
     public Trip findById(Long id) {
         return trips.stream().filter(t -> t.getId().equals(id)).findAny().get();
     }

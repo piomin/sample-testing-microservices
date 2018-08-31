@@ -10,7 +10,7 @@ public class Trip {
     private Long driverId;
     private int price;
     private TripStatus status;
-    private int timeToStart;
+    private long startTime;
 
     public Trip() {
 
@@ -88,11 +88,11 @@ public class Trip {
         this.status = status;
     }
 
-    public int getTimeToStart() {
-        return timeToStart;
+    public long getStartTime() {
+        return startTime;
     }
 
-    public void setTimeToStart(int timeToStart) {
-        this.timeToStart = timeToStart;
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
     }
 }

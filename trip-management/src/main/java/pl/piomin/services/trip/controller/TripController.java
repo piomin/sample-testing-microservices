@@ -29,11 +29,19 @@ public class TripController {
         Passenger passenger = passengerManagementClient.getPassenger(tripInput.getUsername());
         trip.setPassengerId(passenger.getId());
         trip.setDestination(tripInput.getDestination());
-        trip.setLocationX(tripInput.getLocationX());
-        trip.setLocationY(tripInput.getLocationY());
-        Driver driver  = driverManagementClient.getNearestDriver(passenger.getHomeLocationX(), passenger.getHomeLocationY());
+        Driver driver = null;
+        if (tripInput.getLocationX() != null && tripInput.getLocationY() != null) {
+            trip.setLocationX(tripInput.getLocationX());
+            trip.setLocationY(tripInput.getLocationY());
+            driver = driverManagementClient.getNearestDriver(passenger.getHomeLocationX(), passenger.getHomeLocationY());
+        } else {
+            trip.setLocationX(passenger.getHomeLocationX());
+            trip.setLocationY(passenger.getHomeLocationY());
+            driver = driverManagementClient.getNearestDriver(tripInput.getLocationX(), tripInput.getLocationY());
+        }
         trip.setDriverId(driver.getId());
         trip.setStatus(TripStatus.NEW);
+        trip.setStartTime(System.currentTimeMillis());
         trip = repository.add(trip);
         if (updateDriver)
             driverManagementClient.updateDriver(new DriverInput(driver.getId(), DriverStatus.UNAVAILABLE));
@@ -57,12 +65,12 @@ public class TripController {
     @PutMapping("/payment/{id}")
     public Trip payment(@PathVariable("id") Long id) {
         Trip trip = repository.findById(id);
-        passengerManagementClient.updatePassenger(new PassengerInput(id, trip.getPrice()));
-        driverManagementClient.updateDriver(new DriverInput(trip.getDriverId(), trip.getPrice()));
+        long duration = System.currentTimeMillis() - trip.getStartTime();
+        trip.setPrice((int) (duration / 1000));
+        passengerManagementClient.updatePassenger(new PassengerInput(id, (-1) * trip.getPrice()));
+        driverManagementClient.updateDriver(new DriverInput(trip.getDriverId(), DriverStatus.AVAIlABLE, trip.getPrice()));
         trip.setStatus(TripStatus.PAYED);
-        if (updateDriver)
-            driverManagementClient.updateDriver(new DriverInput(trip.getDriverId(), DriverStatus.AVAIlABLE));
-        return trip;
+        return repository.update(trip);
     }
 
     @GetMapping("/{id}")
