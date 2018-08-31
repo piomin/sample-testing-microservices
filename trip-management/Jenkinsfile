@@ -19,7 +19,17 @@ pipeline {
         stage('Integration Tests') {
             steps {
                 dir('trip-management') {
-                    sh 'mvn clean verify -P integration-test, !unit-tests'
+                    script {
+                        waitUntil {
+                            try {
+                                sh 'mvn clean verify -P integration-tests,!unit-tests'
+                                return true
+                            } catch (Exception e) {
+                                def inputRetry = input message:'Retry?', parameters: [booleanParam(defaultValue: true, description: '', name: 'retry')]
+                                return !inputRetry
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -29,11 +39,6 @@ pipeline {
                     sh 'mvn package -Dmaven.test.skip=true'
                 }
             }
-        }
-    }
-    post {
-        always {
-            junit '**/target/*.xml'
         }
     }
 }
