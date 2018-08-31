@@ -44,6 +44,12 @@ public class TripControllerUnitTests {
         Mockito.when(driverManagementClient.getNearestDriver(Mockito.anyInt(), Mockito.anyInt())).thenReturn(new Driver(1L, "Adam Walker", 20, 10));
         Mockito.when(driverManagementClient.updateDriver(Mockito.any(DriverInput.class))).thenReturn(new Driver(1L, "Adam Walker", 20, 10));
         Mockito.when(repository.findById(Mockito.anyLong())).thenReturn(new Trip(1L, 10, 20, 1L, 1L));
+        Mockito.when(repository.update(Mockito.any(Trip.class))).thenAnswer(new Answer<Trip>() {
+            @Override
+            public Trip answer(InvocationOnMock invocation) throws Throwable {
+                return invocation.getArgument(0);
+            }
+        });
         Mockito.when(repository.add(Mockito.any(Trip.class))).thenAnswer(new Answer<Trip>() {
             @Override
             public Trip answer(InvocationOnMock invocation) throws Throwable {
