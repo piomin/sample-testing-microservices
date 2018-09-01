@@ -49,7 +49,7 @@ public class TripDiffIntegrationTests {
             hoverflyRule = HoverflyRule.inDiffMode(SimulationSource.dsl(
                     HoverflyDsl.service(HoverflyMatchers.startsWith(InetAddress.getLocalHost().getHostName()))
                             .get(HoverflyMatchers.startsWith("/passengers/"))
-                            .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'John Smith'}")).header("Content-Type", "application/json;charset=UTF-8")),
+                            .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'John Smith','login':'{{ Request.Path.[2] }}'}")).header("Content-Type", "application/json;charset=UTF-8")),
                     HoverflyDsl.service(HoverflyMatchers.startsWith(InetAddress.getLocalHost().getHostName()))
                             .get(HoverflyMatchers.startsWith("/drivers/"))
                             .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'David Smith','currentLocationX': 15,'currentLocationY':25}")))

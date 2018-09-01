@@ -5,6 +5,7 @@ public class Passenger {
     private Long id;
     private String name;
     private String phoneNo;
+    private String login;
     private int balance;
     private int homeLocationX;
     private int homeLocationY;
@@ -75,4 +76,11 @@ public class Passenger {
         this.discount = discount;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
 }

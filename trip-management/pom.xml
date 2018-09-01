@@ -71,15 +71,15 @@
                 <version>3.5.21</version>
                 <configuration>
                     <pactBrokerUrl>http://192.168.99.100:9080</pactBrokerUrl>
-                    <serviceProviders>
-                        <serviceProvider>
-                            <name>passengerManagementProvider</name>
-                            <protocol>http</protocol>
-                            <host>localhost</host>
-                            <port>50925</port>
-                            <pactFileDirectory>target/pacts</pactFileDirectory>
-                        </serviceProvider>
-                    </serviceProviders>
+                    <!--<serviceProviders>-->
+                        <!--<serviceProvider>-->
+                            <!--<name>passengerManagementProvider</name>-->
+                            <!--<protocol>http</protocol>-->
+                            <!--<host>localhost</host>-->
+                            <!--<port>50925</port>-->
+                            <!--<pactFileDirectory>target/pacts</pactFileDirectory>-->
+                        <!--</serviceProvider>-->
+                    <!--</serviceProviders>-->
                 </configuration>
             </plugin>
             <plugin>
