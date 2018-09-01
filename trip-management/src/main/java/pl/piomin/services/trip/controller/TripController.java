@@ -43,6 +43,10 @@ public class TripController {
             trip.setLocationY(passenger.getHomeLocationY());
             driver = driverManagementClient.getNearestDriver(tripInput.getLocationX(), tripInput.getLocationY());
         }
+        if (driver == null) {
+            trip.setStatus(TripStatus.REJECTED);
+            return trip;
+        }
         trip.setDriverId(driver.getId());
         trip.setStatus(TripStatus.NEW);
         trip.setStartTime(System.currentTimeMillis());
@@ -71,8 +75,8 @@ public class TripController {
         Trip trip = repository.findById(id);
         long duration = System.currentTimeMillis() - trip.getStartTime();
         trip.setPrice((int) (duration / 1000));
-        passengerManagementClient.updatePassenger(new PassengerInput(id, (-1) * trip.getPrice()));
-        driverManagementClient.updateDriver(new DriverInput(trip.getDriverId(), DriverStatus.AVAIlABLE, trip.getPrice()));
+        passengerManagementClient.updatePassenger(new PassengerInput(trip.getPassengerId(), (-1) * trip.getPrice()));
+        driverManagementClient.updateDriver(new DriverInput(trip.getDriverId(), DriverStatus.AVAILABLE, trip.getPrice()));
         trip.setStatus(TripStatus.PAYED);
         return repository.update(trip);
     }
