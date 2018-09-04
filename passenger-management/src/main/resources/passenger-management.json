@@ -1,0 +1,48 @@
+{
+  "data" : {
+    "pairs" : [ {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/passengers/login/walker"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "passenger-management:80"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "http"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "{\"id\":1,\"name\":\"Paul Walker\",\"login\":\"walker\",\"phoneNo\":\"550660770\",\"balance\":1000,\"homeLocationX\":40,\"homeLocationY\":20,\"discount\":0}",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Content-Length" : [ "134" ],
+          "Content-Type" : [ "application/json;charset=UTF-8" ],
+          "Date" : [ "Tue, 04 Sep 2018 20:58:24 GMT" ],
+          "Hoverfly" : [ "Was-Here" ]
+        }
+      }
+    } ],
+    "globalActions" : {
+      "delays" : [ ]
+    }
+  },
+  "meta" : {
+    "schemaVersion" : "v5",
+    "hoverflyVersion" : "v0.17.1",
+    "timeExported" : "2018-09-04T22:58:24+02:00"
+  }
+}

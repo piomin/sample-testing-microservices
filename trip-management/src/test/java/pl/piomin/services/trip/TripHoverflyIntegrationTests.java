@@ -1,5 +1,7 @@
 package pl.piomin.services.trip;
 
+import io.specto.hoverfly.junit.api.HoverflyClient;
+import io.specto.hoverfly.junit.core.HoverflyConfig;
 import io.specto.hoverfly.junit.core.SimulationSource;
 import io.specto.hoverfly.junit.rule.HoverflyRule;
 import org.junit.ClassRule;
@@ -24,13 +26,13 @@ public class TripHoverflyIntegrationTests {
 
     @ClassRule
     public static HoverflyRule hoverflyRule = HoverflyRule
-            .inCaptureOrSimulationMode("passenger-management.json")
+            .inCaptureMode("passenger-management.json")
 //            .inSpyMode(SimulationSource.file(Paths.get("src/test/resources/hoverfly","passenger-management.json")))
             .printSimulationData();
 
     @Test
     public void testGetPassengerByLogin() {
-        final String login = "walker2";
+        final String login = "walker";
         Passenger passenger = passengerManagementClient.getPassenger(login);
         Assert.notNull(passenger, "No passenger");
         Assert.notNull(passenger.getId(), "No passenger id");

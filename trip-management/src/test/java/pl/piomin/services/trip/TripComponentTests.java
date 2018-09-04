@@ -2,6 +2,8 @@ package pl.piomin.services.trip;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.specto.hoverfly.junit.api.HoverflyClient;
+import io.specto.hoverfly.junit.core.HoverflyConfig;
 import io.specto.hoverfly.junit.core.SimulationSource;
 import io.specto.hoverfly.junit.dsl.HoverflyDsl;
 import io.specto.hoverfly.junit.dsl.HttpBodyConverter;
@@ -57,7 +59,7 @@ public class TripComponentTests {
                         .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'David Smith','currentLocationX': 15,'currentLocationY':25}")))
                     .put(HoverflyMatchers.startsWith("/drivers")).anyBody()
                         .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'David Smith','currentLocationX': 15,'currentLocationY':25}")))
-    )).printSimulationData();
+    ), HoverflyConfig.remoteConfigs().host("192.168.99.100").adminPort(8888)).printSimulationData();
 
     @Test
     public void test1CreateNewTrip() throws Exception {
