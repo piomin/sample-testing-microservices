@@ -59,7 +59,7 @@ public class TripComponentTests {
                         .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'David Smith','currentLocationX': 15,'currentLocationY':25}")))
                     .put(HoverflyMatchers.startsWith("/drivers")).anyBody()
                         .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'David Smith','currentLocationX': 15,'currentLocationY':25}")))
-    ), HoverflyConfig.remoteConfigs().host("192.168.99.100").adminPort(8888)).printSimulationData();
+    )).printSimulationData();
 
     @Test
     public void test1CreateNewTrip() throws Exception {

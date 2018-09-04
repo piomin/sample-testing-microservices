@@ -26,7 +26,7 @@ public class TripHoverflyIntegrationTests {
 
     @ClassRule
     public static HoverflyRule hoverflyRule = HoverflyRule
-            .inCaptureMode("passenger-management.json")
+            .inCaptureOrSimulationMode("passenger-management.json")
 //            .inSpyMode(SimulationSource.file(Paths.get("src/test/resources/hoverfly","passenger-management.json")))
             .printSimulationData();
 
