@@ -3,4 +3,4 @@ spring:
     name: passenger-management
 
 server:
-  port: ${PORT:0}
+  port: ${PORT:8080}

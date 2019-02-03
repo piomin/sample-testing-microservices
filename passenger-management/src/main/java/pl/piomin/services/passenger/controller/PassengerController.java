@@ -1,5 +1,7 @@
 package pl.piomin.services.passenger.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.piomin.services.passenger.model.Passenger;
@@ -11,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/passengers")
 public class PassengerController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PassengerController.class);
 
     @Autowired
     private PassengerRepository repository;
@@ -33,7 +37,8 @@ public class PassengerController {
     }
 
     @GetMapping("/login/{login}")
-    public Passenger getById(@PathVariable String login) {
+    public Passenger getByLogin(@PathVariable String login) {
+        LOG.info("Find by login: {}", login);
         return repository.findByLogin(login);
     }
 

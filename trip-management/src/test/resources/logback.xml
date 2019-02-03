@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="false" debug="false">
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%date{ISO8601} [%-5level] %logger{10} %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+    <logger name="hoverfly" level="WARN">
+        <appender-ref ref="CONSOLE" />
+    </logger>
+
+</configuration>

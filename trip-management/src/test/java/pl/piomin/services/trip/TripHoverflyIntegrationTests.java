@@ -17,7 +17,10 @@ import pl.piomin.services.trip.model.Passenger;
 
 import java.nio.file.Paths;
 
-@SpringBootTest(properties = "eureka.client.registerWithEureka=false")
+@SpringBootTest(properties = {
+        "eureka.client.registerWithEureka=false",
+        "ribbon.eureka.enable=false"
+})
 @RunWith(SpringRunner.class)
 public class TripHoverflyIntegrationTests {
 
@@ -26,7 +29,8 @@ public class TripHoverflyIntegrationTests {
 
     @ClassRule
     public static HoverflyRule hoverflyRule = HoverflyRule
-            .inCaptureOrSimulationMode("passenger-management.json")
+//            .inCaptureMode("passenger-management-2.json")
+            .inCaptureMode("passenger-management.json", HoverflyConfig.remoteConfigs().host("192.168.99.100"))
 //            .inSpyMode(SimulationSource.file(Paths.get("src/test/resources/hoverfly","passenger-management.json")))
             .printSimulationData();
 
@@ -39,6 +43,13 @@ public class TripHoverflyIntegrationTests {
         Assert.notNull(passenger.getName(), "No passenger name");
         Assert.notNull(passenger.getLogin(), "No passenger login");
         Assert.isTrue(passenger.getLogin().equals(login), "Invalid passenger login");
+
+        passenger = passengerManagementClient.getPassenger("smith");
+        Assert.notNull(passenger, "No passenger");
+        Assert.notNull(passenger.getId(), "No passenger id");
+        Assert.notNull(passenger.getName(), "No passenger name");
+        Assert.notNull(passenger.getLogin(), "No passenger login");
+        Assert.isTrue(passenger.getLogin().equals("smith"), "Invalid passenger login");
     }
 
 }
