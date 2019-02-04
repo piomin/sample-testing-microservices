@@ -34,7 +34,7 @@ public class DriverControllerComponentTests {
 
     @Test
     public void testFindNearestDriver() {
-        Driver driver = template.getForObject("http://driver-management:8080/drivers/{locationX}/{locationY}", Driver.class, 10, 20);
+        Driver driver = template.getForObject("http://driver-management:8080/drivers/{locationX}/{locationY}", Driver.class, 40, 20);
         Assert.assertNotNull(driver);
     }
 
@@ -43,9 +43,8 @@ public class DriverControllerComponentTests {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         DriverInput input = new DriverInput();
-        input.setId(1L);
-        input.setAmount(2000);
-        input.setStatus(DriverStatus.AVAILABLE);
+        input.setId(3L);
+        input.setStatus(DriverStatus.UNAVAILABLE);
         HttpEntity<DriverInput> entity = new HttpEntity<>(input, headers);
         template.put("http://driver-management:8080/drivers", entity);
     }
