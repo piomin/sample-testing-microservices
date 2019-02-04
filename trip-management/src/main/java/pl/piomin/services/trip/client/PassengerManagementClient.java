@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import pl.piomin.services.trip.model.Passenger;
 import pl.piomin.services.trip.model.PassengerInput;
 
-@FeignClient(name = "passenger-management", url = "http://passenger-management:8080")
+@FeignClient(name = "passenger-management", url = "http://MINKOP1-L:8080")
 public interface PassengerManagementClient {
 
     @GetMapping("/passengers/login/{login}")
