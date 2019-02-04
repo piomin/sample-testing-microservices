@@ -6,9 +6,13 @@ import org.junit.Assert;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import pl.piomin.services.passenger.model.Passenger;
+import pl.piomin.services.passenger.model.PassengerInput;
 
 public class PassengerControllerComponentTests {
 
@@ -31,6 +35,17 @@ public class PassengerControllerComponentTests {
     public void testFindByLogin() {
         Passenger passenger = template.getForObject("http://passenger-management:8080/passengers/login/{login}", Passenger.class, "walker");
         Assert.assertNotNull(passenger);
+    }
+
+    @Test
+    public void testUpdatePassenger() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        PassengerInput input = new PassengerInput();
+        input.setId(1L);
+        input.setAmount(2000);
+        HttpEntity<PassengerInput> entity = new HttpEntity<>(input, headers);
+        template.put("http://passenger-management:8080/passengers", entity);
     }
 
 }

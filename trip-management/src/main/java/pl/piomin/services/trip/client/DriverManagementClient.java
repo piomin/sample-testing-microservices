@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import pl.piomin.services.trip.model.Driver;
 import pl.piomin.services.trip.model.DriverInput;
 
-@FeignClient("driver-management")
+@FeignClient(name = "driver-management", url = "http://driver-management:8080")
 public interface DriverManagementClient {
 
     @GetMapping("/drivers/{locationX}/{locationY}")

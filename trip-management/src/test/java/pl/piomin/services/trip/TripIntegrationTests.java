@@ -40,26 +40,17 @@ import pl.piomin.services.trip.model.TripInput;
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TripComponentTests {
+public class TripIntegrationTests {
 
     ObjectMapper mapper = new ObjectMapper();
 
+    @ClassRule
+    public static HoverflyRule hoverflyRule = HoverflyRule
+            .inSimulationMode(HoverflyConfig.remoteConfigs().host("192.168.99.100"))
+            .printSimulationData();
+
     @Autowired
     MockMvc mockMvc;
-
-    @ClassRule
-    public static HoverflyRule rule = HoverflyRule.inSimulationMode(SimulationSource.dsl(
-            HoverflyDsl.service("passenger-management:80")
-                    .get(HoverflyMatchers.startsWith("/passengers/login/"))
-                        .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'John Walker'}")))
-                    .put(HoverflyMatchers.startsWith("/passengers")).anyBody()
-                        .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'John Walker'}"))),
-            HoverflyDsl.service("driver-management:80")
-                    .get(HoverflyMatchers.startsWith("/drivers/"))
-                        .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'David Smith','currentLocationX': 15,'currentLocationY':25}")))
-                    .put(HoverflyMatchers.startsWith("/drivers")).anyBody()
-                        .willReturn(ResponseCreators.success(HttpBodyConverter.jsonWithSingleQuotes("{'id':1,'name':'David Smith','currentLocationX': 15,'currentLocationY':25}")))
-    )).printSimulationData();
 
     @Test
     public void test1CreateNewTrip() throws Exception {

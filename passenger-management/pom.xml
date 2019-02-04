@@ -28,12 +28,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>au.com.dius</groupId>
-            <artifactId>pact-jvm-provider-spring_2.12</artifactId>
-            <version>3.5.21</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
             <version>1.10.6</version>
