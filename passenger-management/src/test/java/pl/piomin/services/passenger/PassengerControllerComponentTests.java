@@ -46,6 +46,9 @@ public class PassengerControllerComponentTests {
         input.setAmount(2000);
         HttpEntity<PassengerInput> entity = new HttpEntity<>(input, headers);
         template.put("http://passenger-management:8080/passengers", entity);
+        input.setAmount(0);
+        entity = new HttpEntity<>(input, headers);
+        template.put("http://passenger-management:8080/passengers", entity);
     }
 
 }

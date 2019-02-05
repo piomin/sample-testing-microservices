@@ -25,7 +25,7 @@ public class DriverControllerComponentTests {
             .withNetworkMode("tests")
             .withNetworkAliases("driver-management")
             .withExposedPorts(8080)
-            .waitingFor(Wait.forHttp("/driver"));
+            .waitingFor(Wait.forHttp("/drivers"));
 
     @ClassRule
     public static HoverflyRule hoverflyRule = HoverflyRule
@@ -36,6 +36,8 @@ public class DriverControllerComponentTests {
     public void testFindNearestDriver() {
         Driver driver = template.getForObject("http://driver-management:8080/drivers/{locationX}/{locationY}", Driver.class, 40, 20);
         Assert.assertNotNull(driver);
+        driver = template.getForObject("http://driver-management:8080/drivers/{locationX}/{locationY}", Driver.class, 10, 20);
+        Assert.assertNotNull(driver);
     }
 
     @Test
@@ -43,9 +45,13 @@ public class DriverControllerComponentTests {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         DriverInput input = new DriverInput();
-        input.setId(3L);
+        input.setId(2L);
         input.setStatus(DriverStatus.UNAVAILABLE);
         HttpEntity<DriverInput> entity = new HttpEntity<>(input, headers);
+        template.put("http://driver-management:8080/drivers", entity);
+        input.setId(1L);
+        input.setStatus(DriverStatus.AVAILABLE);
+        entity = new HttpEntity<>(input, headers);
         template.put("http://driver-management:8080/drivers", entity);
     }
 

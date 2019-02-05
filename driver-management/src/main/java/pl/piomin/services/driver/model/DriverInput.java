@@ -4,7 +4,7 @@ public class DriverInput {
 
     private Long id;
     private int amount;
-    private  DriverStatus status;
+    private DriverStatus status;
 
     public Long getId() {
         return id;

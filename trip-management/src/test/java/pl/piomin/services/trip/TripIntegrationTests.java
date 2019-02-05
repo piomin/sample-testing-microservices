@@ -1,16 +1,8 @@
 package pl.piomin.services.trip;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.specto.hoverfly.junit.api.HoverflyClient;
 import io.specto.hoverfly.junit.core.HoverflyConfig;
-import io.specto.hoverfly.junit.core.SimulationSource;
-import io.specto.hoverfly.junit.dsl.HoverflyDsl;
-import io.specto.hoverfly.junit.dsl.HttpBodyConverter;
-import io.specto.hoverfly.junit.dsl.ResponseCreators;
-import io.specto.hoverfly.junit.dsl.matchers.HoverflyMatchers;
 import io.specto.hoverfly.junit.rule.HoverflyRule;
-import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.ClassRule;
 import org.junit.FixMethodOrder;
@@ -25,18 +17,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.util.Assert;
-import pl.piomin.services.trip.client.PassengerManagementClient;
-import pl.piomin.services.trip.model.Passenger;
 import pl.piomin.services.trip.model.Trip;
 import pl.piomin.services.trip.model.TripInput;
 
-@SpringBootTest(properties = {
-        "eureka.client.enabled=false",
-        "ribbon.eureka.enable=false",
-        "passenger-management.ribbon.listOfServers=passenger-management",
-        "driver-management.ribbon.listOfServers=driver-management"
-})
+@SpringBootTest
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
