@@ -10,9 +10,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>trip-management</module>
-        <module>passenger-management</module>
         <module>driver-management</module>
+        <module>passenger-management</module>
+        <module>trip-management</module>
     </modules>
 
 </project>

@@ -15,7 +15,7 @@ import pl.piomin.services.driver.model.Driver;
 import pl.piomin.services.driver.model.DriverInput;
 import pl.piomin.services.driver.model.DriverStatus;
 
-public class DriverControllerComponentTests {
+public class DriverControllerIntegrationTests {
 
     private TestRestTemplate template = new TestRestTemplate();
 

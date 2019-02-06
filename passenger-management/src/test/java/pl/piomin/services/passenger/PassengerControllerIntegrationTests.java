@@ -14,7 +14,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import pl.piomin.services.passenger.model.Passenger;
 import pl.piomin.services.passenger.model.PassengerInput;
 
-public class PassengerControllerComponentTests {
+public class PassengerControllerIntegrationTests {
 
     private TestRestTemplate template = new TestRestTemplate();
 
