@@ -49,6 +49,10 @@ public class DriverControllerIntegrationTests {
         input.setStatus(DriverStatus.UNAVAILABLE);
         HttpEntity<DriverInput> entity = new HttpEntity<>(input, headers);
         template.put("http://driver-management:8080/drivers", entity);
+        input.setId(3L);
+        input.setStatus(DriverStatus.UNAVAILABLE);
+        entity = new HttpEntity<>(input, headers);
+        template.put("http://driver-management:8080/drivers", entity);
         input.setId(1L);
         input.setStatus(DriverStatus.AVAILABLE);
         entity = new HttpEntity<>(input, headers);
