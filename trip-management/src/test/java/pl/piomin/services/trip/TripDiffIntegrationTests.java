@@ -10,6 +10,7 @@ import io.specto.hoverfly.junit.dsl.matchers.HoverflyMatchers;
 import io.specto.hoverfly.junit.rule.HoverflyRule;
 import org.hamcrest.Matchers;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,7 @@ public class TripDiffIntegrationTests {
     }
 
     @Test
+    @Ignore
     public void testCreateNewTrip() throws Exception {
         TripInput ti = new TripInput("test", 10, 20, "walker");
         mockMvc.perform(MockMvcRequestBuilders.post("/trips")

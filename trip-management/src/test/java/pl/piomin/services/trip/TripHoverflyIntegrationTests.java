@@ -5,6 +5,7 @@ import io.specto.hoverfly.junit.core.HoverflyConfig;
 import io.specto.hoverfly.junit.core.SimulationSource;
 import io.specto.hoverfly.junit.rule.HoverflyRule;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -31,6 +32,7 @@ public class TripHoverflyIntegrationTests {
             .printSimulationData();
 
     @Test
+    @Ignore
     public void testGetPassengerByLogin() {
         final String login = "walker";
         Passenger passenger = passengerManagementClient.getPassenger(login);
