@@ -7,7 +7,7 @@ jobs:
     steps:
       - setup_remote_docker:
           version: 20.10.14
-      - - run: ssh remote-docker \ git clone -b "$CIRCLE_BRANCH" "$CIRCLE_REPOSITORY_URL"
+      - run: ssh remote-docker \ git clone -b "$CIRCLE_BRANCH" "$CIRCLE_REPOSITORY_URL"
       - run:
           name: Run Pact Broker
           command: docker-compose up -d
