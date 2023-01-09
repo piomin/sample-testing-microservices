@@ -5,6 +5,8 @@ jobs:
     docker:
       - image: 'cimg/openjdk:8.0'
     steps:
+      - setup_remote_docker:
+          version: 20.10.14
       - checkout
       - run:
           name: Run Pact Broker
@@ -23,6 +25,7 @@ executors:
 
 orbs:
   maven: circleci/maven@1.4.0
+  docker: circleci/docker@2.2.0
 
 workflows:
   maven_test:
