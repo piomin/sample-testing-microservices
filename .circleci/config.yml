@@ -7,13 +7,16 @@ jobs:
     steps:
       - setup_remote_docker:
           version: 20.10.14
-      - run: ssh remote-docker \ git clone -b "$CIRCLE_BRANCH" "$CIRCLE_REPOSITORY_URL"
+      - checkout
+      - run:
+          name: Copy source
+          command: docker cp . /home/circleci/project
       - run:
           name: Run Pact Broker
           command: docker-compose up -d
       - run:
           name: Analyze on SonarCloud
-          command: ssh remote-docker \ mvn verify sonar:sonar
+          command: ssh remote-docker \ cd /home/circleci/project && mvn verify sonar:sonar
       - run:
           name: Run Pact Broker
           command: docker-compose down -d
