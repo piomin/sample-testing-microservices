@@ -22,6 +22,12 @@ executors:
   j8:
     docker:
       - image: 'cimg/openjdk:8.0'
+  machine_executor_amd64:
+    machine:
+      image: ubuntu-2204:2022.04.2
+    environment:
+      architecture: "amd64"
+      platform: "linux/amd64"
 
 orbs:
   maven: circleci/maven@1.4.0
@@ -34,3 +40,4 @@ workflows:
           executor: j8
       - build:
           context: SonarCloud
+          executor: machine_executor_amd64
