@@ -19,7 +19,7 @@ import pl.piomin.services.passenger.repository.PassengerRepository;
 
 @RunWith(SpringRestPactRunner.class)
 @Provider("passengerManagementProvider")
-@PactBroker(host = "192.168.99.100", port = "9080")
+@PactBroker(host = "localhost", port = "9292")
 public class PassengerControllerContractTests {
 
     @InjectMocks

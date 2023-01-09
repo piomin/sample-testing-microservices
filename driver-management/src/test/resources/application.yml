@@ -1,3 +1,7 @@
 pactbroker:
-  host: "192.168.99.100"
-  port: "8090"
+  host: "localhost"
+  port: "9292"
+  protocol: "http"
+  auth:
+    username: ""
+    password: ""

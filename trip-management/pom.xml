@@ -70,7 +70,7 @@
                 <artifactId>pact-jvm-provider-maven_2.12</artifactId>
                 <version>3.5.21</version>
                 <configuration>
-                    <pactBrokerUrl>http://192.168.99.100:9080</pactBrokerUrl>
+                    <pactBrokerUrl>http://localhost:9292</pactBrokerUrl>
                     <!--<serviceProviders>-->
                         <!--<serviceProvider>-->
                             <!--<name>passengerManagementProvider</name>-->

@@ -21,7 +21,7 @@ import java.util.Collections;
 
 @RunWith(SpringRestPactRunner.class)
 @Provider("driverManagementProvider")
-@PactBroker
+@PactBroker(host = "localhost", port = "9292")
 public class DriverControllerContractTests {
 
     @InjectMocks
