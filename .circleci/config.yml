@@ -10,13 +10,13 @@ jobs:
       - checkout
       - run:
           name: Run Pact Broker
-          command: docker-compose up
+          command: docker-compose up -d
       - run:
           name: Analyze on SonarCloud
           command: mvn verify sonar:sonar
       - run:
           name: Run Pact Broker
-          command: docker-compose down
+          command: docker-compose down -d
 
 executors:
   j8:
