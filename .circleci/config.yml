@@ -1,39 +1,41 @@
 version: 2.1
 
 jobs:
-  build:
-    docker:
-      - image: 'cimg/openjdk:8.0'
+  analyze:
+    executor:
+      name: docker/machine
+      image: ubuntu-2204:2022.04.2
     steps:
-      - setup_remote_docker:
-          version: 20.10.14
       - checkout
-      - run:
-          name: Copy source
-          command: docker cp . /home/circleci/project
+      - docker/install-docker-compose
       - run:
           name: Run Pact Broker
           command: docker-compose up -d
-      - run:
-          name: Analyze on SonarCloud
-          command: ssh remote-docker \ cd /home/circleci/project && mvn verify sonar:sonar
-      - run:
-          name: Run Pact Broker
-          command: docker-compose down -d
+      - maven/with_cache:
+          steps:
+            - run:
+                name: Run Tests
+                command: mvn package pact:publish
+      - maven/with_cache:
+          steps:
+            - run:
+                name: Sonar Analysis
+                command: mvn package sonar:sonar -DskipTests -Dquarkus.container-image.build=false
 
 executors:
-  j8:
-    docker:
-      - image: 'cimg/openjdk:8.0'
+  machine:
+    machine:
+      image: ubuntu-2204:2022.04.2
+    environment:
+      architecture: "amd64"
+      platform: "linux/amd64"
 
 orbs:
-  maven: circleci/maven@1.4.0
+  maven: circleci/maven@1.4.1
   docker: circleci/docker@2.2.0
 
 workflows:
   maven_test:
     jobs:
-      - maven/test:
-          executor: j8
-      - build:
+      - analyze:
           context: SonarCloud

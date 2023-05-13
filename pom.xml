@@ -17,4 +17,17 @@
         <module>performance-tests</module>
     </modules>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>au.com.dius</groupId>
+                <artifactId>pact-jvm-provider-maven_2.12</artifactId>
+                <version>3.5.21</version>
+                <configuration>
+                    <pactBrokerUrl>http://localhost:9292</pactBrokerUrl>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
